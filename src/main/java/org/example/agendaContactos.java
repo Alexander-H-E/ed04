@@ -5,25 +5,26 @@ import java.util.*;
 /**
  * La clase Agenda
  */
-public class Agenda {
+public class agendaContactos implements IContactos {
 
-    private List<Contacto> contacts; // Lista de Contacto
+    private List<Persona> contacts; // Lista de Contacto
 
 
-    public Agenda() {
+    public agendaContactos() {
         this.contacts = new ArrayList<>();
     }
 
 
     /**
-     * Añade contacto
+     * Añadir contacto
      *
-     * @param name  el nombre
-     * @param phone el numero de telefono
+     * @param name  nombre
+     * @param phone telefono
      */
+    @Override
     public void addContact(String name, String phone) {
         boolean exists = false;
-        for (Contacto c : contacts) {
+        for (Persona c : contacts) {
             if (c.getName().equalsIgnoreCase(name)) {
                 exists = true;
                 c.getPhones().add(phone);
@@ -32,21 +33,21 @@ public class Agenda {
         }
 
         if (!exists) {
-            Contacto newContact = new Contacto(name, phone);
+            Persona newContact = new Persona(name, phone);
             contacts.add(newContact);
         }
     }
-
     /**
-     * Quitar contacto
+     * Elimina contacto
      *
-     * @param name el nombre
+     * @param name nombre
      */
+    @Override
     public void removeContact(String name) {
-        Iterator<Contacto> it = contacts.iterator();
+        Iterator<Persona> it = contacts.iterator();
 
         while (it.hasNext()) {
-            Contacto c = it.next();
+            Persona c = it.next();
 
             if (c.getName().equalsIgnoreCase(name)) {
                 it.remove();
@@ -61,8 +62,9 @@ public class Agenda {
      * @param oldPhone telefono viejo
      * @param newPhone telefono nuevo
      */
+    @Override
     public void modifyPhoneNumber(String name, String oldPhone, String newPhone) {
-        for (Contacto c : contacts) {
+        for (Persona c : contacts) {
             if (c.getName().equalsIgnoreCase(name)) {
                 List<String> phones = c.getPhones();
 
@@ -80,7 +82,8 @@ public class Agenda {
      *
      * @return contacto
      */
-    public List<Contacto> getContacts() {
+    @Override
+    public List<Persona> getContacts() {
         return this.contacts;
     }
 }
